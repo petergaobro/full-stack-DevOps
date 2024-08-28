@@ -1,0 +1,28 @@
+{
+  "name": "draft",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node app.js",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write \"**/*.{js,md,json}\""
+  },
+  "dependencies": {
+    "@sequelize/postgres": "^7.0.0-alpha.41",
+    "dotenv": "^8.2.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "express": "^4.17.1",
+    "mongoose": "^8.5.2",
+    "pg": "^8.12.0",
+    "prettier": "^3.3.3",
+    "sequelize": "^6.37.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.9.1",
+    "eslint": "^8.57.0",
+    "globals": "^15.9.0",
+    "nodemon": "^2.0.7",
+    "sequelize-cli": "^6.6.2"
+  }
+}
