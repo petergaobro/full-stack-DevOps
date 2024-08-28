@@ -7,7 +7,7 @@ const pluginsOptions = {
 };
 
 export default [
-  { files: ["**/*.js"], languageOptions: { sourceType: "commonjs" } },
+  { files: ["**/*.{ts}"], languageOptions: { sourceType: "commonjs" } },
   { languageOptions: { globals: globals.node } },
   {
     plugins: {

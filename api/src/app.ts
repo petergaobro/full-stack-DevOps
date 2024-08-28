@@ -13,7 +13,7 @@ connectPg
   .connect()
   .then(() => console.log(`Server is running on ${process.env.DB_PORT}`));
 
-connectPg.query("Select * from demotable", (err, res) => {
+connectPg.query("Select * from demotable", (err: any, res: any) => {
   if (!err) {
     console.log(res.rows);
   } else {
@@ -26,7 +26,7 @@ connectPg.query("Select * from demotable", (err, res) => {
 // const app = express();
 // require("dotenv").config();
 
-// app.get("/", (req, res) => {
+// app.get("/", (req: any, res: any) => {
 //   res.send("Hello, World!");
 // });
 
