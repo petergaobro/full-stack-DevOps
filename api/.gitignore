@@ -9,13 +9,11 @@ lerna-debug.log*
 
 node_modules
 .husky
+build
 dist
 dist-ssr
 *.local
 .env
-
-# macos
-.DS_Store
 
 # Editor directories and files
 .vscode/*
