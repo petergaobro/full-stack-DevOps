@@ -1,0 +1,54 @@
+#version: '3.8'
+
+services:
+  frontend:
+    image: dashboard-app
+    container_name: container-dashboard
+    build:
+      context: ./dashboard
+      dockerfile: Dockerfile
+    ports:
+      - "5173:80"
+    networks:
+      - peter-network
+    depends_on:
+      - backend
+
+  backend:
+    image: api-app
+    container_name: container-api
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - peter-network
+    environment:
+      - DATABASE_HOST=container-postgres
+      - DATABASE_PORT=5432
+      - DATABASE_USER=postgres
+      - DATABASE_PASSWORD=GAOpeng123
+      - DATABASE_NAME=postgres
+    depends_on:
+      - container-postgres
+
+  container-postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: GAOpeng123
+      POSTGRES_DB: postgres
+    ports:
+      - "5433:5432"
+    networks:
+      - peter-network
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+networks:
+  peter-network:
+    driver: bridge
+
+volumes:
+  pgdata:

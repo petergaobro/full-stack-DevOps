@@ -9,63 +9,7 @@ dotenv.config();
 
 console.log("===> Hello, the backend server is starting ...");
 // @ts-ignore
-const port: number = parseInt(process.env.SERVER_PORT);
-// const connectPg = new Client({
-//   host: process.env.DB_HOST,
-//   user: process.env.DB_USERNAME,
-//   port: process.env.DB_PORT,
-//   password: process.env.DB_PASSWORD,
-//   database: process.env.DB_NAME,
-// });
-
-// connectPg
-//   .connect()
-//   .then(() => console.log(`Database is running on ${process.env.DB_PORT}`));
-//
-// connectPg.query("Select * from demotable", (err: any, res: any) => {
-//   if (!err) {
-//     console.log(res.rows);
-//   } else {
-//     console.log(err.message);
-//   }
-//   connectPg.end;
-// });
-
-// app.get("/", async (req: any, res: any) => {
-//   try {
-//     const data = await myNewPool.query("SELECT * FROM schools");
-//     res.status(200).send(data.rows);
-//   } catch (err) {
-//     console.log(err);
-//     res.sendStatus(500);
-//   }
-// });
-//
-// app.post("/", async (req: any, res: any) => {
-//   const { name, location } = req.body;
-//   try {
-//     await myNewPool.query("INSERT INTO schools (name, address) VALUES ($1, $2)", [
-//       name,
-//       location,
-//     ]);
-//     res.status(200).send({ message: "Successfully added child" });
-//   } catch (err) {
-//     console.log(err);
-//     res.sendStatus(500);
-//   }
-// });
-//
-// app.get("/setup", async (req: any, res: any) => {
-//   try {
-//     await myNewPool.query(
-//       "CREATE TABLE schools( id SERIAL PRIMARY KEY, name VARCHAR(100), address VARCHAR(100))",
-//     );
-//     res.status(200).send({ message: "Successfully created table" });
-//   } catch (err) {
-//     console.log(err);
-//     res.sendStatus(500);
-//   }
-// });
+const port: number = parseInt(process.env.SERVER_PORT) || 8000;
 
 const corsOptions = {
   origin: "http://localhost:5173",
@@ -92,6 +36,10 @@ class App {
 }
 
 const app = new App().app;
+
+app.get("/", (req, res) => {
+  res.status(200).send("Welcome to the backend!");
+})
 
 app.listen(port, () => {
   console.log("===> Application is listening at http://localhost:" + port);
