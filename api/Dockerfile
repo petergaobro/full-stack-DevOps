@@ -1,30 +1,27 @@
-# Step 1: Build the React app
-# Use the official Node.js runtime as the base image
-FROM node:20 as build
 
-# Set the working directory inside the container
+ARG NODE_VERSION=20.16.0
+
+# Use an official Node.js runtime as a parent image
+FROM node:${NODE_VERSION}-alpine
+
+# Set the working directory in the container
 WORKDIR /app
 
-# Copy package.json and package-lock.json to the working directory
+# Copy package.json to the working directory
 COPY package*.json ./
 
-# Install dependencies
-RUN npm install
+# Install the application's dependencies
+# some of the package will not be installed in container, don't know why, so I have to copy the node_modules from local to container
+# RUN npm install
 
-# Copy the entire application code to the container
-COPY . .
+# Copy the rest of the application code to the working directory
+COPY build ./build
+# COPY public ./public
+COPY .env ./
+COPY node_modules ./node_modules
 
-# Build the React app for production
-RUN npm run build
+# Expose port to the outside world
+EXPOSE 8080
 
-# Use Nginx as the production server
-FROM nginx:alpine
-
-# Copy the built React app to Nginx's web server directory
-COPY --from=build /app/build /usr/share/nginx/html
-
-# Expose port 80 for the Nginx server
-EXPOSE 80
-
-# Start Nginx when the container runs
-CMD ["nginx", "-g", "daemon off;"]
+# Define the command to run the application
+CMD ["npm", "start"]
