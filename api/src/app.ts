@@ -9,7 +9,7 @@ dotenv.config();
 
 console.log("===> Hello, the backend server is starting ...");
 // @ts-ignore
-const port: number = parseInt(process.env.SERVER_PORT) || 8000;
+const port: number = parseInt(process.env.SERVER_PORT);
 // const connectPg = new Client({
 //   host: process.env.DB_HOST,
 //   user: process.env.DB_USERNAME,
@@ -68,7 +68,7 @@ const port: number = parseInt(process.env.SERVER_PORT) || 8000;
 // });
 
 const corsOptions = {
-  origin: "http://localhost:4000",
+  origin: "http://localhost:5173",
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Allow specific HTTP methods
   maxAge: 86400, // Cache the preflight response for 24 hours
