@@ -1,4 +1,3 @@
-import { Pool } from "pg";
 import { Sequelize } from "sequelize-typescript";
 import * as dotenv from "dotenv";
 
