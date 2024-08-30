@@ -1,6 +1,9 @@
 
 ARG NODE_VERSION=20.16.0
 
+# Use production node environment by default.
+#ENV NODE_ENV production
+
 # Use an official Node.js runtime as a parent image
 FROM node:${NODE_VERSION}-alpine
 

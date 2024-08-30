@@ -1,8 +1,23 @@
 # Devops challenge did by PENG (Peter)
+# run docker (production version)
+docker compose build
+docker compose up
+
+# copy the contents of .env.local to .env
+
+ # then run locally (localhost), make sure the container-postgres is still running
 ```shell
 npm run build
 npm run dev
 ```
+
+
+
+
+
+
+
+
 # Docker Network Setting
 ```shell
 docker network create --driver bridge peter-network
