@@ -1,16 +1,26 @@
 # Devops challenge did by PENG (Peter)
+
+# Step 1
 # run docker (production version)
 docker compose build
 docker compose up
 
 # copy the contents of .env.local to .env
 
+# Step 2
+# api
  # then run locally (localhost), make sure the container-postgres is still running
 ```shell
 npm run build
 npm run dev
 ```
 
+# Step 3
+# dashboard
+```shell
+npm run build
+npm run dev
+```
 
 
 
