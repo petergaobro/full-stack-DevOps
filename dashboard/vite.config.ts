@@ -7,4 +7,9 @@ export default defineConfig({
   build: {
     outDir: "build",
   },
+  resolve: {
+    alias: {
+      "@emotion/styled": "@emotion/styled",
+    },
+  },
 });
