@@ -39,7 +39,7 @@ const app = new App().app;
 
 app.get("/", (req, res) => {
   res.status(200).send("Welcome to the backend!");
-})
+});
 
 app.listen(port, () => {
   console.log("===> Application is listening at http://localhost:" + port);
