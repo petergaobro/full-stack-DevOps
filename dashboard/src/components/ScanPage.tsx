@@ -8,6 +8,7 @@ import {
   TableRow,
   Typography,
   Box,
+  TablePagination
 } from "@mui/material";
 import { ScanResult } from "../types/scan-result.ts";
 import Badge from "./Badge";
@@ -29,11 +30,22 @@ const mockData: ScanResult[] = [
 ];
 
 const ScanPage: React.FC = () => {
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
   // handling routing
   const navigate = useNavigate();
   // navigate to a different route with specific ID
   const handleSelectScan = (scanId: string) => {
     navigate(`/findings/${scanId}`);
+  };
+
+  const handleChangePage = (_event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
   };
 
   return (
@@ -47,7 +59,7 @@ const ScanPage: React.FC = () => {
       <TableContainer>
         <Table>
           <TableHead>
-            <TableRow>
+            <TableRow hover sx={{ cursor: "pointer" }}>
               <TableCell>Repository Name</TableCell>
               <TableCell>Scan Status</TableCell>
               <TableCell>Findings</TableCell>
@@ -60,6 +72,7 @@ const ScanPage: React.FC = () => {
               <TableRow
                 key={index}
                 hover
+                sx={{ cursor: "pointer" }}
                 onClick={() => handleSelectScan(scan.repositoryName)}
               >
                 <TableCell>{scan.repositoryName}</TableCell>
@@ -73,6 +86,15 @@ const ScanPage: React.FC = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <TablePagination
+          rowsPerPageOptions={[10, 25, 100]}
+          component="div"
+          count={mockData.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+      />
     </Box>
   );
 };
