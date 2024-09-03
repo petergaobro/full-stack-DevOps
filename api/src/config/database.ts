@@ -36,7 +36,7 @@ class Database {
       port: this.POSTGRES_PORT,
 
       define: {
-        schema: "e-commerce", // Set the schema name
+        schema: "p-postgres", // Set the schema name
       },
       models: [],
       logging: (...msg) => console.log(msg),
