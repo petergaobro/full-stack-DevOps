@@ -13,9 +13,14 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const FormPage: React.FC = () => {
+  // handling routing
   const navigate = useNavigate();
+  // create a state variable to update this state
+
   const [formData, setFormData] = useState({ status: "", repositoryName: "" });
 
+  // provided is a common event handler pattern to manage form input changes
+  // provided appears to be part of a React event handler function that updates form data based on user input
   const handleChange = (
     event:
       | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -24,7 +29,7 @@ const FormPage: React.FC = () => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name as string]: value });
   };
-
+  //asynchronous HTTP POST request to send form data to a server endpoint and navigates to another page upon successful submission
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
@@ -35,7 +40,7 @@ const FormPage: React.FC = () => {
         },
         body: JSON.stringify(formData),
       });
-
+      // conditional
       if (response.ok) {
         console.log("Form data submitted successfully:", formData);
         navigate("/scan-list");
@@ -49,20 +54,21 @@ const FormPage: React.FC = () => {
 
   const selectStatus = [
     {
-      value: 'Queued',
+      value: "Queued",
     },
     {
-      value: 'In Progress',
+      value: "In Progress",
     },
     {
-      value: 'Success',
+      value: "Success",
     },
     {
-      value: 'Failed',
+      value: "Failed",
     },
   ];
 
   return (
+    // create a form for submitting scan results with MUI component
     <Box
       display="flex"
       flexDirection="column"
@@ -77,20 +83,20 @@ const FormPage: React.FC = () => {
         <FormControl fullWidth margin="normal">
           {/*<InputLabel>Status</InputLabel>*/}
           <TextField
-              id="status"
-              name="status"
-              value={formData.status}
-              required
-              select
-              label="Status"
-              // defaultValue=""
-              helperText="Please select your status"
-              onChange={handleChange}
+            id="status"
+            name="status"
+            value={formData.status}
+            required
+            select
+            label="Status"
+            // defaultValue=""
+            helperText="Please select your status"
+            onChange={handleChange}
           >
             {selectStatus.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.value}
-                </MenuItem>
+              <MenuItem key={option.value} value={option.value}>
+                {option.value}
+              </MenuItem>
             ))}
           </TextField>
           {/*<Select*/}

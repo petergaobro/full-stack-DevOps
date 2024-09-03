@@ -1,3 +1,4 @@
+// defines several TypeScript interfaces that related to project
 export interface ScanResult {
   id: string;
   repositoryName: string;

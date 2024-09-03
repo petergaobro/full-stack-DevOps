@@ -10,6 +10,7 @@ const App: React.FC = () => {
     <Router>
       <Container maxWidth="md">
         <Routes>
+          {/*handling route*/}
           <Route path="/" element={<FormPage />} />
           <Route path="/scan-list" element={<ScanPage />} />
           <Route path="/findings/:scanId" element={<FindingsPage />} />

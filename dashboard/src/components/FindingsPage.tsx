@@ -13,9 +13,12 @@ import {
 import { Finding } from "../types/scan-result.ts";
 
 const FindingsPage: React.FC = () => {
+  // uses destructuring to extract the scanId parameter from the object returned by useParams.
   const { scanId } = useParams<{ scanId: string }>();
+  // The state is initialized as an empty array of type Finding[]
   const [mockFindings, setMockFindings] = useState<Finding[]>([]);
   useEffect(() => {
+    // fetches data from a server endpoint and updates a state in a React component
     const fetchData = async () => {
       try {
         const response = await fetch(
@@ -27,11 +30,11 @@ const FindingsPage: React.FC = () => {
         console.error("Error fetching data:", error);
       }
     };
-
-    fetchData();
+    fetchData().then((r) => console.log(r));
   }, []);
 
   return (
+    // display a table of findings for a specific scan ID with MUI components
     <Box
       display="flex"
       flexDirection="column"

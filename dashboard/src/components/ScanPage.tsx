@@ -12,13 +12,12 @@ import {
 import { ScanResult } from "../types/scan-result.ts";
 import { useNavigate } from "react-router-dom";
 
-// 删除 mockData
-// const mockData: ScanResult[] = [];
-
 const ScanPage: React.FC = () => {
+  // manage a state variable named scanData that holds an array of ScanResult objects
   const [scanData, setScanData] = useState<ScanResult[]>([]);
+  // handling routing
   const navigate = useNavigate();
-
+  // fetch data asynchronously from an API endpoint when the component mounts
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -29,15 +28,16 @@ const ScanPage: React.FC = () => {
         console.error("Error fetching data:", error);
       }
     };
-
     fetchData();
   }, []);
 
+  // handling route to specific ID
   const handleSelectScan = (scanId: string) => {
     navigate(`/findings/${scanId}`);
   };
 
   return (
+    // create a table for listing scan results with MUI component
     <Box
       display="flex"
       flexDirection="column"
