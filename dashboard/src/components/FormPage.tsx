@@ -31,6 +31,7 @@ const FormPage: React.FC = () => {
       alignItems="center"
       justifyContent="center"
     >
+      <Typography variant="h3">ADXIAI code challenge</Typography>
       <Typography variant="h4">Submit Scan Results</Typography>
       <form
         onSubmit={handleSubmit}

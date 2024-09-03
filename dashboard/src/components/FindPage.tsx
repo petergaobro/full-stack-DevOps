@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Table,
   TableBody,
@@ -9,6 +9,7 @@ import {
   TableRow,
   Typography,
   Box,
+  Button,
 } from "@mui/material";
 import { Finding } from "../types/scan-result.ts";
 
@@ -28,9 +29,18 @@ const mockFindings: Finding[] = [
 ];
 
 const FindingPage: React.FC = () => {
+  // handle route
+  const navigate = useNavigate();
   // extract route parameters from the URL
   const { scanId } = useParams<{ scanId: string }>();
-
+  // back home button
+  const handleBackHome = () => {
+    navigate("/");
+  };
+  // back scan page button
+  const handleScanPage = () => {
+    navigate("/scan-list");
+  };
   return (
     // display a table of findings for a specific scan ID with MUI components
     <Box
@@ -63,6 +73,14 @@ const FindingPage: React.FC = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <Box sx={{ display: "flex", alignItems: "flex-start'" }}>
+        <Button variant="outlined" onClick={handleBackHome}>
+          Back home
+        </Button>
+        <Button variant="outlined" onClick={handleScanPage}>
+          Back scan list
+        </Button>
+      </Box>
     </Box>
   );
 };

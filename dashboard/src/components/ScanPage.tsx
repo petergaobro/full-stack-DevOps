@@ -8,7 +8,8 @@ import {
   TableRow,
   Typography,
   Box,
-  TablePagination
+  TablePagination,
+  Button,
 } from "@mui/material";
 import { ScanResult } from "../types/scan-result.ts";
 import Badge from "./Badge";
@@ -43,9 +44,16 @@ const ScanPage: React.FC = () => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
+  };
+
+  // back home button
+  const handleBackHome = () => {
+    navigate("/");
   };
 
   return (
@@ -87,14 +95,17 @@ const ScanPage: React.FC = () => {
         </Table>
       </TableContainer>
       <TablePagination
-          rowsPerPageOptions={[10, 25, 100]}
-          component="div"
-          count={mockData.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
+        rowsPerPageOptions={[10, 25, 100]}
+        component="div"
+        count={mockData.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
       />
+      <Button variant="outlined" onClick={handleBackHome}>
+        Back home
+      </Button>
     </Box>
   );
 };
