@@ -5,8 +5,8 @@ import {
   Box,
   TextField,
   MenuItem,
-  Select,
-  InputLabel,
+  // Select,
+  // InputLabel,
   FormControl,
   SelectChangeEvent,
 } from "@mui/material";
@@ -47,6 +47,21 @@ const FormPage: React.FC = () => {
     }
   };
 
+  const selectStatus = [
+    {
+      value: 'Queued',
+    },
+    {
+      value: 'In Progress',
+    },
+    {
+      value: 'Success',
+    },
+    {
+      value: 'Failed',
+    },
+  ];
+
   return (
     <Box
       display="flex"
@@ -60,18 +75,35 @@ const FormPage: React.FC = () => {
         style={{ width: "100%", maxWidth: "400px" }}
       >
         <FormControl fullWidth margin="normal">
-          <InputLabel>Status</InputLabel>
-          <Select
-            name="status"
-            value={formData.status}
-            onChange={handleChange}
-            required
+          {/*<InputLabel>Status</InputLabel>*/}
+          <TextField
+              id="status"
+              name="status"
+              value={formData.status}
+              required
+              select
+              label="Status"
+              // defaultValue=""
+              helperText="Please select your status"
+              onChange={handleChange}
           >
-            <MenuItem value="Queued">Queued</MenuItem>
-            <MenuItem value="In Progress">In Progress</MenuItem>
-            <MenuItem value="Success">Success</MenuItem>
-            <MenuItem value="Failed">Failed</MenuItem>
-          </Select>
+            {selectStatus.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.value}
+                </MenuItem>
+            ))}
+          </TextField>
+          {/*<Select*/}
+          {/*  name="status"*/}
+          {/*  value={formData.status}*/}
+          {/*  onChange={handleChange}*/}
+          {/*  required*/}
+          {/*>*/}
+          {/*  <MenuItem value="Queued">Queued</MenuItem>*/}
+          {/*  <MenuItem value="In Progress">In Progress</MenuItem>*/}
+          {/*  <MenuItem value="Success">Success</MenuItem>*/}
+          {/*  <MenuItem value="Failed">Failed</MenuItem>*/}
+          {/*</Select>*/}
         </FormControl>
         <TextField
           label="Repository Name"
