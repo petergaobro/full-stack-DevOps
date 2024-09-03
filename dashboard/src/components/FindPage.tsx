@@ -30,7 +30,9 @@ const mockFindings: Finding[] = [
 ];
 
 const FindingPage: React.FC = () => {
+  // represents the current page number in a paginated list
   const [page, setPage] = React.useState(0);
+  // represents the number of rows displayed per page in a paginated list
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   // handle route
   const navigate = useNavigate();

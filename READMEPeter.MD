@@ -10,6 +10,7 @@ docker compose up
 # Step 2
 # api
  # then run locally (localhost), make sure the container-postgres is still running
+# localhost is 5433, production version is 5432
 ```shell
 npm run build
 npm run dev
