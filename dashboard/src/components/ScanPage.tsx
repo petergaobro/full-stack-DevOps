@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -8,54 +8,33 @@ import {
   TableRow,
   Typography,
   Box,
-  TablePagination,
-  Button,
 } from "@mui/material";
 import { ScanResult } from "../types/scan-result.ts";
-import Badge from "./Badge";
 import { useNavigate } from "react-router-dom";
 
-const mockData: ScanResult[] = [
-  {
-    repositoryName: "Repo1",
-    scanStatus: "Completed",
-    findings: 5,
-    timestamp: "2023-10-01",
-  },
-  {
-    repositoryName: "Repo2",
-    scanStatus: "Queued",
-    findings: 0,
-    timestamp: "2023-10-02",
-  },
-];
+// 删除 mockData
+// const mockData: ScanResult[] = [];
 
 const ScanPage: React.FC = () => {
-  // represents the current page number in a paginated list
-  const [page, setPage] = React.useState(0);
-  // represents the number of rows displayed per page in a paginated list
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  // handling routing
+  const [scanData, setScanData] = useState<ScanResult[]>([]);
   const navigate = useNavigate();
-  // navigate to a different route with specific ID
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:8080/users");
+        const { data } = await response.json();
+        setScanData(data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   const handleSelectScan = (scanId: string) => {
     navigate(`/findings/${scanId}`);
-  };
-
-  const handleChangePage = (_event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
-
-  // back home button
-  const handleBackHome = () => {
-    navigate("/");
   };
 
   return (
@@ -64,50 +43,33 @@ const ScanPage: React.FC = () => {
       flexDirection="column"
       alignItems="center"
       justifyContent="center"
+      width={"100%"}
     >
       <Typography variant="h4">Scan List</Typography>
       <TableContainer>
         <Table>
           <TableHead>
-            <TableRow hover sx={{ cursor: "pointer" }}>
-              <TableCell>Repository Name</TableCell>
-              <TableCell>Scan Status</TableCell>
-              <TableCell>Findings</TableCell>
-              <TableCell>Timestamp</TableCell>
+            <TableRow>
+              <TableCell>ID</TableCell>
+              <TableCell width={"20%"}>Repository Name</TableCell>
+              <TableCell width={"20%"}>Scan Status</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {/*iterate over the scan results array and create a TableRow for each scan*/}
-            {mockData.map((scan, index) => (
+            {scanData.map((scan, index) => (
               <TableRow
                 key={index}
                 hover
-                sx={{ cursor: "pointer" }}
-                onClick={() => handleSelectScan(scan.repositoryName)}
+                onClick={() => handleSelectScan(scan.id)}
               >
+                <TableCell>{scan.id}</TableCell>
                 <TableCell>{scan.repositoryName}</TableCell>
-                <TableCell>{scan.scanStatus}</TableCell>
-                <TableCell>
-                  <Badge count={scan.findings} />
-                </TableCell>
-                <TableCell>{scan.timestamp}</TableCell>
+                <TableCell>{scan.status}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={mockData.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-      <Button variant="outlined" onClick={handleBackHome}>
-        Back home
-      </Button>
     </Box>
   );
 };

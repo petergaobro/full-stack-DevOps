@@ -1,46 +1,82 @@
-import React, { useState } from "react";
-import { Button, Typography, Box, TextField } from "@mui/material";
+import React, { ChangeEvent, useState } from "react";
+import {
+  Button,
+  Typography,
+  Box,
+  TextField,
+  MenuItem,
+  Select,
+  InputLabel,
+  FormControl,
+  SelectChangeEvent,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 const FormPage: React.FC = () => {
-  // handling routing
   const navigate = useNavigate();
-  // create a state variable to update this state
-  const [formData, setFormData] = useState({ scanResult: "" });
+  const [formData, setFormData] = useState({ status: "", repositoryName: "" });
 
-  // provided is a common event handler pattern to manage form input changes
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+  const handleChange = (
+    event:
+      | ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+      | SelectChangeEvent<string>,
+  ): void => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name as string]: value });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    // prevent the default action of an event from being executed
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // submit the scan result
-    console.log("Submitting scan result:", formData.scanResult);
-    // handling routing
-    navigate("/scan-list");
+    try {
+      const response = await fetch("http://localhost:8080/users/scanJson", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        console.log("Form data submitted successfully:", formData);
+        navigate("/scan-list");
+      } else {
+        console.error("Failed to submit form data");
+      }
+    } catch (error) {
+      console.error("Error while submitting form data:", error);
+    }
   };
 
   return (
-    // create a form for submitting scan results with MUI component
     <Box
       display="flex"
       flexDirection="column"
       alignItems="center"
       justifyContent="center"
     >
-      <Typography variant="h3">ADXIAI code challenge</Typography>
       <Typography variant="h4">Submit Scan Results</Typography>
       <form
         onSubmit={handleSubmit}
         style={{ width: "100%", maxWidth: "400px" }}
       >
+        <FormControl fullWidth margin="normal">
+          <InputLabel>Status</InputLabel>
+          <Select
+            name="status"
+            value={formData.status}
+            onChange={handleChange}
+            required
+          >
+            <MenuItem value="Queued">Queued</MenuItem>
+            <MenuItem value="In Progress">In Progress</MenuItem>
+            <MenuItem value="Success">Success</MenuItem>
+            <MenuItem value="Failed">Failed</MenuItem>
+          </Select>
+        </FormControl>
         <TextField
-          label="Scan Result"
-          name="scanResult"
-          value={formData.scanResult}
+          label="Repository Name"
+          name="repositoryName"
+          value={formData.repositoryName}
           onChange={handleChange}
           fullWidth
           required

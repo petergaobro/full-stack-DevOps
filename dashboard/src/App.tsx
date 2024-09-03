@@ -1,19 +1,18 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import FormPage from "./components/FormPage";
-import FindingPage from "./components/FindPage.tsx";
-import ScanPage from "./components/ScanPage.tsx";
+import ScanPage from "./components/ScanPage";
+import FindingsPage from "./components/FindingsPage";
 import { Container } from "@mui/material";
-import "./App.css";
 
 const App: React.FC = () => {
   return (
     <Router>
-      <Container maxWidth="sm">
+      <Container maxWidth="md">
         <Routes>
           <Route path="/" element={<FormPage />} />
           <Route path="/scan-list" element={<ScanPage />} />
-          <Route path="/findings/:scanId" element={<FindingPage />} />
+          <Route path="/findings/:scanId" element={<FindingsPage />} />
         </Routes>
       </Container>
     </Router>

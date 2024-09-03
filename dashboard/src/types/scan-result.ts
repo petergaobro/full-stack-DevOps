@@ -1,13 +1,30 @@
 export interface ScanResult {
+  id: string;
   repositoryName: string;
-  scanStatus: string;
-  findings: number;
-  timestamp: string;
+  status: string;
 }
 
 export interface Finding {
+  type: string;
   ruleId: string;
-  description: string;
+  location: Location;
+  metadata: Metadata;
+}
+
+interface Metadata {
   severity: string;
+  description: string;
+}
+
+interface Location {
   path: string;
+  positions: Positions;
+}
+
+interface Positions {
+  begin: Begin;
+}
+
+interface Begin {
+  line: number;
 }
