@@ -74,7 +74,7 @@ app.use(router.routes());
 app.use(router.allowedMethods());
 
 // @ts-ignore
-const port: number = parseInt(process.env.SERVER_PORT) || 8000;
+const port: number = parseInt(process.env.SERVER_PORT) || 8080;
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);

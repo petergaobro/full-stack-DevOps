@@ -3,6 +3,7 @@ import { Pool } from "pg";
 
 dotenv.config();
 
+// connecting to a PostgreSQL database using the pg library
 // @ts-ignore
 const pool = new Pool({
   host: process.env.POSTGRES_HOST as string,

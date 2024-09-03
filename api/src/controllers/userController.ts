@@ -8,6 +8,8 @@ import * as response from "../utils/response";
  * @description：scan result submit
  */
 export const scanJson = async (ctx: Context) => {
+  // read and process a JSON file using an asynchronous,
+  // and then respond to an HTTP request
   await userService.scanJson(ctx.request.body as userService.Result);
   ctx.body = response.createResponse(
     200,
@@ -18,7 +20,7 @@ export const scanJson = async (ctx: Context) => {
 /**
  * @author Peng
  * @date 2024/8/30
- * @description：check second list
+ * @description：get specific list based on input
  */
 export const getList = async (ctx: Context) => {
   const results = await userService.getList();
@@ -34,7 +36,9 @@ export const getList = async (ctx: Context) => {
  * @description：check it out in detailed
  */
 export const userInfo = async (ctx: Context) => {
+  // retrieves user information based on an ID
   const user = await userService.userInfo(ctx.query.id as string);
+  // if get related ID, display all of them
   if (user) {
     ctx.body = response.createResponse(
       200,
