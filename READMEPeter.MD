@@ -11,13 +11,15 @@ docker compose up
 # api
  # then run locally (localhost), make sure the container-postgres is still running
 # localhost is 5433, production version is 5432
+
+# go to api folder
 ```shell
 npm run build
 npm run dev
 ```
 
 # Step 3
-# dashboard
+# go to dashboard folder
 ```shell
 npm run build
 npm run dev
@@ -28,7 +30,7 @@ npm run dev
 
 
 
-
+# ======================================= Docker setting =======================================
 # Docker Network Setting
 ```shell
 docker network create --driver bridge peter-network
