@@ -49,7 +49,10 @@ const FindingsPage: React.FC = () => {
       alignItems="center"
       justifyContent="center"
     >
-      <Typography variant="h4">Findings for {scanId}</Typography>
+      <Typography variant="h4">
+        Findings for: <br />
+        {scanId}
+      </Typography>
       <TableContainer>
         <Table>
           <TableHead>
@@ -64,9 +67,6 @@ const FindingsPage: React.FC = () => {
             {mockFindings.map((finding, index) => (
               <TableRow
                 key={index}
-                sx={{
-                  cursor: "pointer",
-                }}
                 hover
               >
                 <TableCell>{finding.ruleId}</TableCell>
