@@ -61,6 +61,9 @@ const ScanPage: React.FC = () => {
                 key={index}
                 hover
                 onClick={() => handleSelectScan(scan.id)}
+                sx={{
+                  cursor: "pointer",
+                }}
               >
                 <TableCell>{scan.id}</TableCell>
                 <TableCell>{scan.repositoryName}</TableCell>

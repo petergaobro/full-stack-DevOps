@@ -30,7 +30,7 @@ const FindingsPage: React.FC = () => {
         console.error("Error fetching data:", error);
       }
     };
-    fetchData().then((r) => console.log(r));
+    fetchData();
   }, []);
 
   return (
@@ -54,7 +54,13 @@ const FindingsPage: React.FC = () => {
           </TableHead>
           <TableBody>
             {mockFindings.map((finding, index) => (
-              <TableRow key={index}>
+              <TableRow
+                key={index}
+                sx={{
+                  cursor: "pointer",
+                }}
+                hover
+              >
                 <TableCell>{finding.ruleId}</TableCell>
                 <TableCell>{finding.metadata.description}</TableCell>
                 <TableCell>{finding.metadata.severity}</TableCell>
