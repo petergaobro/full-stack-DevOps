@@ -11,7 +11,7 @@ export interface Result {
 
 export const scanJson = async (resultBo: Result): Promise<void> => {
   // find the file
-  const absolutePath = path.join(__dirname, "../path", "example.json");
+  const absolutePath = path.join(__dirname, "../../", "example.json");
   // read json file
   const jsonData = fs.readFileSync(absolutePath, "utf-8");
   const jsonObject = JSON.parse(jsonData);

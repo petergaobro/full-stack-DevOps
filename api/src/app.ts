@@ -66,16 +66,29 @@
 import Koa from "koa";
 import bodyParser from "koa-bodyparser";
 import router from "./routes";
+import cors from "koa-cors";
+import * as dotenv from "dotenv";
+dotenv.config();
 
 const app = new Koa();
+// cors
+app.use(
+  cors({
+    // allow to access to all domain
+    origin: "*",
+    // allow access to methods
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    // allow access to headers
+    headers: ["Content-Type", "Authorization"],
+  }),
+);
 
 app.use(bodyParser());
 app.use(router.routes());
 app.use(router.allowedMethods());
 
 // @ts-ignore
-const port: number = parseInt(process.env.SERVER_PORT) || 8080;
-
+const port: number = parseInt(process.env.SERVER_PORT);
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
