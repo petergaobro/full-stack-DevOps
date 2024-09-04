@@ -10,6 +10,7 @@ import {
   Typography,
   Box,
   Button,
+  Paper,
 } from "@mui/material";
 import { Finding } from "../types/scan-result.ts";
 
@@ -41,14 +42,14 @@ const FindingsPage: React.FC = () => {
     navigate("/");
   };
 
+  // back scan page button
+  const handleScanPage = () => {
+    navigate("/scan-list");
+  };
+
   return (
     // display a table of findings for a specific scan ID with MUI components
-    <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      justifyContent="center"
-    >
+    <Paper sx={{ width: "100%" }}>
       <Typography variant="h4">
         Findings for: <br />
         {scanId}
@@ -65,10 +66,7 @@ const FindingsPage: React.FC = () => {
           </TableHead>
           <TableBody>
             {mockFindings.map((finding, index) => (
-              <TableRow
-                key={index}
-                hover
-              >
+              <TableRow key={index} hover>
                 <TableCell>{finding.ruleId}</TableCell>
                 <TableCell>{finding.metadata.description}</TableCell>
                 <TableCell>{finding.metadata.severity}</TableCell>
@@ -78,10 +76,15 @@ const FindingsPage: React.FC = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Button variant="outlined" onClick={handleBackHome}>
-        Back home
-      </Button>
-    </Box>
+      <Box sx={{ display: "flex", alignItems: "flex-start'" }}>
+        <Button variant="outlined" onClick={handleBackHome}>
+          Back home
+        </Button>
+        <Button variant="outlined" onClick={handleScanPage}>
+          Back scan list
+        </Button>
+      </Box>
+    </Paper>
   );
 };
 
