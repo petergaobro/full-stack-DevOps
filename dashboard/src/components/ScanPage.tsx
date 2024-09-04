@@ -8,11 +8,16 @@ import {
   TableRow,
   Typography,
   Box,
+  TablePagination,
+  Button,
 } from "@mui/material";
 import { ScanResult } from "../types/scan-result.ts";
 import { useNavigate } from "react-router-dom";
 
 const ScanPage: React.FC = () => {
+  // set initial page state
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
   // manage a state variable named scanData that holds an array of ScanResult objects
   const [scanData, setScanData] = useState<ScanResult[]>([]);
   // handling routing
@@ -34,6 +39,23 @@ const ScanPage: React.FC = () => {
   // handling route to specific ID
   const handleSelectScan = (scanId: string) => {
     navigate(`/findings/${scanId}`);
+  };
+
+  // pagination handle change
+  const handleChangePage = (_event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
+  // back home button
+  const handleBackHome = () => {
+    navigate("/");
   };
 
   return (
@@ -73,6 +95,18 @@ const ScanPage: React.FC = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <TablePagination
+        rowsPerPageOptions={[10, 25, 100]}
+        component="div"
+        count={scanData.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
+      <Button variant="outlined" onClick={handleBackHome}>
+        Back home
+      </Button>
     </Box>
   );
 };

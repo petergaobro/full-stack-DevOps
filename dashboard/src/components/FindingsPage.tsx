@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Table,
   TableBody,
@@ -9,10 +9,13 @@ import {
   TableRow,
   Typography,
   Box,
+  Button,
 } from "@mui/material";
 import { Finding } from "../types/scan-result.ts";
 
 const FindingsPage: React.FC = () => {
+  // handling routing
+  const navigate = useNavigate();
   // uses destructuring to extract the scanId parameter from the object returned by useParams.
   const { scanId } = useParams<{ scanId: string }>();
   // The state is initialized as an empty array of type Finding[]
@@ -32,6 +35,11 @@ const FindingsPage: React.FC = () => {
     };
     fetchData();
   }, []);
+
+  // back home button
+  const handleBackHome = () => {
+    navigate("/");
+  };
 
   return (
     // display a table of findings for a specific scan ID with MUI components
@@ -70,6 +78,9 @@ const FindingsPage: React.FC = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <Button variant="outlined" onClick={handleBackHome}>
+        Back home
+      </Button>
     </Box>
   );
 };
