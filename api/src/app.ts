@@ -12,7 +12,20 @@
 // const port: number = parseInt(process.env.SERVER_PORT) || 8000;
 //
 // const corsOptions = {
-//   origin: "http://localhost:5173",
+//   // // cors
+//   // app.use(
+//   //   cors({
+//   //     // allow to access to all domain
+//   //     origin: "*",
+//   //     // allow access to methods
+//   //     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+//   //     // allow access to headers
+//   //     headers: ["Content-Type", "Authorization"],
+//   //   }),
+//   // );
+//   // origin: "http://localhost:5173",
+//   origin: "*",
+//   headers: ["Content-Type", "Authorization"],
 //   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 //   methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Allow specific HTTP methods
 //   maxAge: 86400, // Cache the preflight response for 24 hours

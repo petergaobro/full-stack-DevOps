@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize-typescript";
 import * as dotenv from "dotenv";
+import { Result } from "../models/result.model";
 
 dotenv.config();
 // const myNewPool = new Pool({
@@ -36,9 +37,9 @@ class Database {
       port: this.POSTGRES_PORT,
 
       define: {
-        schema: "p-postgres", // Set the schema name
+        schema: "public", // Set the schema name
       },
-      models: [],
+      models: [Result],
       logging: (...msg) => console.log(msg),
     });
 
