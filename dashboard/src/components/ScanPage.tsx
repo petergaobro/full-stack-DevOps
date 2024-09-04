@@ -63,8 +63,8 @@ const ScanPage: React.FC = () => {
     // create a table for listing scan results with MUI component
     <Paper sx={{ width: "100%" }}>
       <Typography variant="h4">Scan List</Typography>
-      <TableContainer>
-        <Table>
+      <TableContainer sx={{ maxHeight: 440 }}>
+        <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
               <TableCell>ID</TableCell>
