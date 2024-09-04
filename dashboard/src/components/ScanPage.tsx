@@ -10,6 +10,7 @@ import {
   Box,
   TablePagination,
   Button,
+  Paper,
 } from "@mui/material";
 import { ScanResult } from "../types/scan-result.ts";
 import { useNavigate } from "react-router-dom";
@@ -17,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 const ScanPage: React.FC = () => {
   // set initial page state
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
   // manage a state variable named scanData that holds an array of ScanResult objects
   const [scanData, setScanData] = useState<ScanResult[]>([]);
   // handling routing
@@ -60,13 +61,7 @@ const ScanPage: React.FC = () => {
 
   return (
     // create a table for listing scan results with MUI component
-    <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      justifyContent="center"
-      width={"100%"}
-    >
+    <Paper sx={{ width: "100%" }}>
       <Typography variant="h4">Scan List</Typography>
       <TableContainer>
         <Table>
@@ -78,25 +73,27 @@ const ScanPage: React.FC = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {scanData.map((scan, index) => (
-              <TableRow
-                key={index}
-                hover
-                onClick={() => handleSelectScan(scan.id)}
-                sx={{
-                  cursor: "pointer",
-                }}
-              >
-                <TableCell>{scan.id}</TableCell>
-                <TableCell>{scan.repositoryName}</TableCell>
-                <TableCell>{scan.status}</TableCell>
-              </TableRow>
-            ))}
+            {scanData
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((scan, index) => (
+                <TableRow
+                  key={index}
+                  hover
+                  onClick={() => handleSelectScan(scan.id)}
+                  sx={{
+                    cursor: "pointer",
+                  }}
+                >
+                  <TableCell>{scan.id}</TableCell>
+                  <TableCell>{scan.repositoryName}</TableCell>
+                  <TableCell>{scan.status}</TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
+        rowsPerPageOptions={[5, 10, 15]}
         component="div"
         count={scanData.length}
         rowsPerPage={rowsPerPage}
@@ -107,7 +104,7 @@ const ScanPage: React.FC = () => {
       <Button variant="outlined" onClick={handleBackHome}>
         Back home
       </Button>
-    </Box>
+    </Paper>
   );
 };
 
